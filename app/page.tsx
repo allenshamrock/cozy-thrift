@@ -1,8 +1,8 @@
-import Signin from "@/components/Signin";
+import Navbar from "@/components/Navbar";
 export default function Home() {
   return (
     <div className=" flex w-full ">
-      <Signin/>
+     <Navbar/>
     </div>
   );
 }

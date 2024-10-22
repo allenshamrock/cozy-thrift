@@ -9,8 +9,8 @@ export default function Signin() {
   };
   return (
     <Button
-      className="bg-slate-900 cursor-pointer font-semibold text-sm text-white my-3 "
-      variant="outline"
+      className="w-full bg-slate-900 cursor-pointer font-semibold text-sm text-white my-3 hover:none "
+      // variant="outline"
       onClick={handleClick}
     >
       Sign in

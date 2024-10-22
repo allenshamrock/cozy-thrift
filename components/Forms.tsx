@@ -62,6 +62,11 @@ export default function Forms() {
 
   const handleFormClick = (authForm: string) => {
     setIsActive(authForm);
+    if (authForm === "signin") {
+      window.history.pushState({}, "", "/signin");
+    } else {
+      window.history.pushState({}, "", "/signup");
+    }
   };
 
   return (
