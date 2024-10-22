@@ -2,13 +2,14 @@
 import { useState } from "react";
 // import { Input } from "@/components/ui/input";
 import {
-  Search,
+  // Search,
   LayoutDashboard,
   ShoppingBag,
   AlignJustify,
   X,
 } from "lucide-react";
 import Signin from "./Signin";
+import SearchInput from "./SearchInput";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,23 +21,7 @@ export default function Navbar() {
           <p>Logo</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="hidden md:block relative">
-            <div className="flex items-center bg-gray-100 rounded-full gap-3 px-3 py-1">
-              <input
-                className="bg-transparent outline-none w-[10rem] focus:w-[20rem] transition-all duration-300 placeholder:text-xs"
-                placeholder="Search for products.."
-                type="search"
-              />
-              <button>
-                <Search className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-          <div className="flex md:hidden items-center">
-            <button type="button" onClick={() => setMenuOpen(!menuOpen)}>
-              <Search className="w-6 h-6" />
-            </button>
-          </div>
+          <SearchInput/>
           <button className="border border-red-500 bg-secondary/10 px-3 py-1.5 rounded-md justify-center flex items-center gap-3">
             <LayoutDashboard className="w-4 h-4 text-red-500" />
             <p className="capitalize text-xs font-semibold text-red-500">
