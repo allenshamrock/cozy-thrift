@@ -21,6 +21,7 @@ export default function SearchInput() {
         router.push(pathname);
       }
     }
+    // console.log(querySearch)
   };
 
   return (
