@@ -1,7 +1,7 @@
-import { Tprofile } from "@/types/supabaseTypes";
+import { TProfile } from "@/types/supabaseTypes";
 import { createClient } from "./supabase/server";
 
-export interface TuserSession extends Tprofile {
+export interface TUserSession extends TProfile {
   email: string | undefined;
 }
 
@@ -16,7 +16,7 @@ export const getUserSession = async () => {
 
   //get user profile
   const { data: profile, error } = await supabase
-    .from("users")
+    .from("profiles")
     .select()
     .eq("id", user.id)
     .single();
