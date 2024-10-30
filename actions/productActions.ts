@@ -1,13 +1,12 @@
 "use server";
+
 import { revalidatePath } from "next/cache";
 import { createClient } from "../lib/supabase/server";
 import { getUserSession } from "@/lib/getSession";
-import { redirect } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { TProducts } from "@/types/supabaseTypes";
 import { deleteImage } from "./uploadThingActions";
 import { cache } from "react";
-import { promise } from "zod";
 
 type DataType =
   | {
@@ -20,20 +19,22 @@ type DataType =
       price: string;
       color: string;
       status: "active" | "draft" | "scheduled";
-      scheduledDate?: Date | null;
+      scheduleDate?: Date | null;
       categorySlug: string;
       deliveryInfo: string;
-      variants: [];
-      images: [];
       gender: string;
+      variants: string[];
+      images: string[];
     }
   | FieldValues;
 
 export async function createProduct(data: DataType) {
   const supabase = createClient();
-  const user = await getUserSession();
 
-  if (!user || user.role !== "admin") throw new Error("Unauthorized access");
+  const user = await getUserSession();
+  if (!user || user.role !== "admin") {
+    throw new Error("Unathorized Access!");
+  }
 
   try {
     const { error } = await supabase.from("products").insert({
@@ -50,13 +51,13 @@ export async function createProduct(data: DataType) {
       categorySlug: data.categorySlug,
       gender: data.gender,
       deliveryInfo: data.deliveryInfo,
-      scheduledDate: data.scheduledDate,
+      scheduleDate: data.scheduleDate,
     });
     if (error) {
-      console.log("Product failed to be posted", error);
+      console.log("Product error", error);
     }
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 
   revalidatePath("/dashboard/products");
@@ -102,19 +103,19 @@ export async function editProduct(data: DataType) {
   revalidatePath("/store");
 }
 
-
 export async function deleteProduct(data: TProducts) {
   const supabase = createClient();
+
   const user = await getUserSession();
   console.log("User", user);
-
   if (!user || user.role !== "admin") {
-    throw new Error("Unauthorized access!");
+    throw new Error("Unathorized Access!");
   }
-  try {
-    const response = await supabase.from("products").delete().eq("id", data.id);
 
-    if (response.status === 204) {
+  try {
+    const res = await supabase.from("products").delete().eq("id", data.id);
+
+    if (res.status === 204) {
       data.images.map(async (image: string) => {
         await deleteImage(image.split("/")[4]);
       });
@@ -127,27 +128,65 @@ export async function deleteProduct(data: TProducts) {
   revalidatePath("/store");
 }
 
+// export async function setProductAsDraft(id: number) {
+//   const supabase = createClient();
+
+//   const user = await getUserSession();
+//   if (!user || user.role !== "admin") {
+//     throw new Error("Unathorized Access!");
+//   }
+
+//   try {
+//     const { error } = await supabase
+//       .from("products")
+//       .update({ status: "draft" })
+//       .eq("id", id);
+//     if (error) {
+//       console.log("Product to draft error", error);
+//       return {
+//         success: false,
+//       };
+//     }
+//     revalidatePath("/dashboard/products");
+//     revalidatePath("/store");
+
+//     return {
+//       success: true,
+//     };
+//   } catch (error) {
+//     console.log(error);
+//     return {
+//       success: false,
+//     };
+//   }
+// }
+
 export async function setScheduledProductAsActive() {
-    const supabase = createClient()
-    try{
-        const {error, data:scheduledProducts} =await supabase.from("products").select().eq("status","scheduled").lte("scheduledDate",new Date().toISOString())
-        if(error){
-            console.log("An error occured while scheduling a product.Try afgain")
-            return
-        }
+  const supabase = createClient();
 
-        if (scheduledProducts.length){
-            const promise = scheduledProducts.map((product)=>
-            {
-                return supabase.from("products").update({status:"active",scheduleDate:null}).eq("id",product.id)
-            }
-            )
-        }
-
-        await promise.all(promise)
-    }catch(error){
-        console.log(error)
+  try {
+    const { error, data: scheduledProducts } = await supabase
+      .from("products")
+      .select()
+      .eq("status", "scheduled")
+      .lte("scheduleDate", new Date().toISOString());
+    if (error) {
+      console.log("Product to active error", error);
+      return;
     }
-   revalidatePath("/dashboard/products");
-   revalidatePath("/store");
+
+    if (scheduledProducts.length) {
+      const promise = scheduledProducts.map((product) => {
+        return supabase
+          .from("products")
+          .update({ status: "active", scheduleDate: null })
+          .eq("id", product.id);
+      });
+
+      await Promise.all(promise);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
+
