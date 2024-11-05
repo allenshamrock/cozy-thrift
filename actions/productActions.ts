@@ -5,7 +5,7 @@ import { createClient } from "../lib/supabase/server";
 import { getUserSession } from "@/lib/getSession";
 import { FieldValues } from "react-hook-form";
 import { TProducts } from "@/types/supabaseTypes";
-import { deleteImage } from "./uploadThingActions";
+import { deleteImage } from "./uploadThingsActions";
 import { cache } from "react";
 
 type DataType =
