@@ -16,7 +16,7 @@ export default function CartIcon() {
   return (
     <Link href="/cart" className="relative">
       <ShoppingBag className="w-5 h-5 opacity-50" />
-      <div className="w-6 aspect-square bg-rose-600 rounded-full absolute -top-2  -right-2 grid place-item-center text-sm text-white font-semibold cursor-pointer">
+      <div className="w-6 aspect-square bg-rose-600 rounded-full absolute -top-2 -right-2 grid place-items-center text-sm text-white font-semibold cursor-pointer">
         {cart.length}
       </div>
     </Link>
