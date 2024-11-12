@@ -9,11 +9,17 @@ import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
   const supabase = createClient();
-  const { data: categories } = await supabase.from("categories").select();
-
+  const { data: categories, error } = await supabase
+    .from("categories")
+    .select();
+    console.log("Categories:", categories);
+  if (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
   return (
     <div className="">
-     <Hero/>
+      <Hero />
       <Categories categories={categories} />
       <NewArrivals />
       <InfoCards />

@@ -13,7 +13,8 @@ export default function NavCategories({
   categories,
 }: {
   categories: TCategory[] | null;
-}) {
+})
+ {
   <DropdownMenu>
     <DropdownMenuTrigger className="text-muted-foreground flex items-center text-sm hover:text-black outline-none">
       <span>Categories</span>

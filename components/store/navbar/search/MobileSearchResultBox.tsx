@@ -102,7 +102,7 @@ export default function MobileSearchResultBox({
               ))
             ) : (
               <div className="w-full h-full flex gap-2 items-center justify-center">
-                <p>Tpe something to Search</p>
+                <p>Type something to Search</p>
                 <Search className="w-4 h-4 text-slate-500" />
               </div>
             )}
