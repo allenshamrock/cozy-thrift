@@ -21,9 +21,6 @@ export default function Categories({
 }: {
   categories: TCategory[] | null;
 }) {
-    // if (!categories || categories.length === 0) {
-    //   return <p>No categories found.</p>;
-    // }
   const [width, setWidth] = useState<number>(640);
 
   useEffect(() => {

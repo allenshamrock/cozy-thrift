@@ -13,13 +13,15 @@ export default function NewArrivals() {
             width={500}
             height={1000}
             className="object-cover object-center transition h-[25rem] w-full"
-           
           />
         </div>
         <div className="sm:mt-4 mb-2 sm:mb-0 max-sm:-order-1 ">
-          <h2 className="font-extralight text-sm">REDIFINE YOUR CLOSET</h2>
+          <h2 className="font-bold text-sm">REDIFINE YOUR CLOSET</h2>
           <p className="text-sm mt-2 opacity-70">
-            Step into fashion world that make statement pieces that turn heads
+            Step into fashion world that make statement pieces that turn
+            heads,offering the ideal harmony of bold design and timeless trends.
+            Shop today and make a statement with clothing that redefines the
+            ordinary.
           </p>
         </div>
       </div>
@@ -51,7 +53,6 @@ export default function NewArrivals() {
           width={500}
           height={1000}
           className="h-[25rem] object-cover object-top sm:h-[18rem] w-full mt-4"
-      
         />
       </div>
     </section>

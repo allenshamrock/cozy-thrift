@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { v4 as uuidv4 } from "uuid";
 import { persist, devtools } from "zustand/middleware";
 
-export type Gender = "male" | "female" | "both";
+export type Gender = "male" | "female" | "unisex";
 
 export interface TCartItem extends TProducts {
   variant?: string;
