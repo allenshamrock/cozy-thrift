@@ -173,6 +173,8 @@ export type Database = {
       };
       products: {
         Row: {
+          map(arg0: (product: any) => import("react").JSX.Element): import("react").ReactNode;
+          length: number;
           category: string | null;
           categorySlug: string;
           color: string | null;

@@ -33,7 +33,7 @@ const variants = {
   },
 };
 
-export default function mobileProductsFilter() {
+export default function MobileProductsFilter() {
   const [openFilter, setOpenFilter] = useState(false);
 
   const router = useRouter();
