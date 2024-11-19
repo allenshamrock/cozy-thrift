@@ -1,4 +1,4 @@
-import { TCategory,TProducts } from "@/types/supabaseTypes";
+import { TCategory, TProducts } from "@/types/supabaseTypes";
 import MobileProductsFilter from "./MobileProductsFilter";
 import Products from "./Products";
 import ProductsFilter from "./ProductsFilter";
@@ -23,17 +23,17 @@ export default function ProductsDisplay({
   gender = "",
   search = "",
   color = "",
-}:PropType){
-      const currentCategory = categories?.find(
-        (cat) => cat.slug === categorySlug
-      );
-    return (
-      <div className="flex items-center justify-between mb-6 mt-20">
+}: PropType) {
+  const currentCategory = categories?.find((cat) => cat.slug === categorySlug);
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-6 mt-20">
         {!search && (
-          <h2 className="text-2xl md:text-3xl capitalize font-semibold ">
+          <h2 className="text-2xl md:text-3xl font-semibold capitalize">
             {categorySlug
               ? `${color} ${gender} ${currentCategory?.name}`
-              : ` Explore all ${color} ${gender} collectons`}
+              : `Explore All ${color} ${gender} Collections`}
           </h2>
         )}
         {search && (
@@ -41,11 +41,12 @@ export default function ProductsDisplay({
             Search Results for {color} {gender} {search}
           </h2>
         )}
-        <MobileProductsFilter/>
-        <div className="md:grid md:grid-cols-5 gap-10 mt-3">
-            <ProductsFilter categories={categories} />
-            <Products page={page} noOfpages={noOfPages} products={products} />
-        </div>
+        <MobileProductsFilter />
       </div>
-    );
+      <div className="md:grid md:grid-cols-5 gap-10 mt-3">
+        <ProductsFilter categories={categories} />
+        <Products page={page} noOfPages={noOfPages} products={products} />
+      </div>
+    </div>
+  );
 }

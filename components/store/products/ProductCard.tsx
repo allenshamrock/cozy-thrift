@@ -1,8 +1,8 @@
 "use client";
-import { motion } from "framer-motion";
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { TProducts } from "@/types/supabaseTypes";
 import Button from "@/components/Button";
 import { useCartStore } from "@/store/cart-store";
@@ -17,11 +17,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-type ProtoType = {
-  product: TProducts[] | null;
+type PropType = {
+  product: TProducts | null;
 };
 
-export default function ProductsCard({ product }: ProtoType) {
+export default function ProductCard({ product }: PropType) {
   const [imgUrl, setImgUrl] = useState(product?.images[0]);
 
   const cart = useCartStore((state) => state.cart);
@@ -30,10 +30,10 @@ export default function ProductsCard({ product }: ProtoType) {
   const addItemToCart = (product: TProducts | null, variant?: string) => {
     if (product && variant) {
       addToCart(product, variant);
-      toast.success(`Size ${variant} added to cart`);
+      toast.success(`Size ${variant} added to cart.`);
     } else {
       addToCart(product as TProducts);
-      toast.success("Item added to cart");
+      toast.success("Item added to cart.");
     }
   };
 
@@ -43,9 +43,11 @@ export default function ProductsCard({ product }: ProtoType) {
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ type: "tween" }}
       viewport={{ once: true }}
-      className="overflow-hidden border border-slate-100"
+      className=" overflow-hidden border border-slate-100"
     >
-      <Link href={`/product/${product?.id}`}>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/product/${product?.id}`}
+      >
         <div
           onMouseOver={() =>
             setImgUrl(
@@ -55,21 +57,16 @@ export default function ProductsCard({ product }: ProtoType) {
             )
           }
           onMouseLeave={() => setImgUrl(product?.images[0])}
-          className="relative h-[14rem] md:h-[20rem] bg-gray-100 "
+          className="relative bg-gray-100 h-[14rem] md:h-[20rem]"
         >
-          <Image
-            className="object-cover"
-            fill
-            src={imgUrl as string}
-            alt="product image"
-          />
+          <Image className="object-cover" src={imgUrl as string} alt="" fill />
         </div>
       </Link>
       <div className="p-2 md:p-4">
         <h2 className="text-base md:text-lg font-semibold truncate">
           {product?.name}
         </h2>
-        <div className="md:flex flex-between items-end">
+        <div className="md:flex justify-between items-end">
           <div>
             <span className="text-muted-foreground text-xs">
               {product?.category}
@@ -82,8 +79,8 @@ export default function ProductsCard({ product }: ProtoType) {
             <Dialog>
               <DialogTrigger asChild>
                 <Button
-                  label="Add To cart"
-                  className="border-gray-400 py-1.5 rounded-none text-gray-900 max-md:mt-2 max-md:text-xs max-md:w-full "
+                  label="Add to cart"
+                  className="border-gray-400 py-1.5 rounded-none text-gray-900 max-md:mt-2 max-md:text-xs max-md:w-full"
                 />
               </DialogTrigger>
               <DialogContent>
@@ -94,9 +91,9 @@ export default function ProductsCard({ product }: ProtoType) {
                 <div className="my-3 grid grid-cols-2 md:grid-cols-4 items-start justify-between gap-2">
                   {product.images.map((image, i) => (
                     <Image
-                      key={1}
+                      key={i}
                       src={image}
-                      alt={product.name}
+                      alt={product.name as string}
                       width={500}
                       height={500}
                       className="aspect-square rounded-md object-cover bg-slate-100"
@@ -112,10 +109,10 @@ export default function ProductsCard({ product }: ProtoType) {
 
                     return (
                       <button
-                        disabled={incart}
+                        disabled={inCart}
                         onClick={() => addItemToCart(product, variant)}
                         key={i}
-                        className="h-8 text-sm font-semibold flex items-center justify-center border-2 rounded-md cursor-pointer px-3 bg-white hover:bg-primary hover:text-white transition-smooth hover:border-transparent  disabled:bg-primary disabled:border-transparent disabled:text-white disabled:cursor-not-allowed disabled:pointer-events-none "
+                        className="h-8 text-sm font-semibold flex items-center justify-center border-2 rounded-md cursor-pointer px-3 bg-white hover:bg-primary hover:text-white transition-smooth hover:border-transparent disabled:bg-primary disabled:border-transparent disabled:text-white disabled:cursor-not-allowed disabled:pointer-events-none"
                       >
                         {variant}
                       </button>
@@ -126,10 +123,10 @@ export default function ProductsCard({ product }: ProtoType) {
             </Dialog>
           ) : (
             <Button
-              label={"Add to cart"}
               disabled={cart.some((item) => item.id === product?.id)}
               onClick={() => addItemToCart(product)}
-              className="border-gray-400 max-md:mt-2 max-md:text-xs max-md:w-full text-gray-900 rounded-none py-1.5"
+              label={"Add to cart"}
+              className="border-gray-400 py-1.5 rounded-none text-gray-900 max-md:mt-2 max-md:text-xs max-md:w-full"
             />
           )}
         </div>

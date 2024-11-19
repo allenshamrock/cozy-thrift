@@ -1,6 +1,9 @@
 "use client";
+
 import { cn } from "@/lib/utils";
+import { TProducts } from "@/types/supabaseTypes";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 
@@ -9,7 +12,7 @@ type TProp = {
   page?: number | undefined;
 };
 
-export default function ProductsPagination({ noOfPages, page }: TProp) {
+export default function ProductsPaginaton({ noOfPages, page }: TProp) {
   const params = useSearchParams();
   const router = useRouter();
 
@@ -18,11 +21,11 @@ export default function ProductsPagination({ noOfPages, page }: TProp) {
     index?: number
   ) => {
     let currentQuery = {};
+
     if (params) {
       currentQuery = queryString.parse(params.toString());
       console.log("current query", currentQuery);
     }
-
     if (type === "plus") {
       const updatedQuery: any = {
         ...currentQuery,
@@ -57,10 +60,10 @@ export default function ProductsPagination({ noOfPages, page }: TProp) {
   };
 
   return (
-    <div className="flex items-center justify-between my-6 mb-6 gap-2 w-full">
+    <div className="w-full flex items-center justify-between my-6 mb-6 gap-2">
       <button
         disabled={page === 1}
-        className="h-8 px-3 rounded-md flex items-center justify-center border border-slate-400 hover:bg-secondary hover:border-transparent hover:text-white transition-smooth disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none "
+        className="h-8 px-3 rounded-md flex items-center justify-center border border-slate-400 hover:bg-secondary hover:border-transparent hover:text-white transition-smooth disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none"
         onClick={() => handlePagination("minus")}
       >
         <ChevronLeft className="w-4 h-4" />
@@ -72,7 +75,7 @@ export default function ProductsPagination({ noOfPages, page }: TProp) {
             key={i}
             onClick={() => handlePagination("index", i + 1)}
             className={cn(
-              "w-8 h-8 text-xs flex items-center justify-center rounded-md bg-slate-300  hover:bg-secondary hover:text-white transition duration-700 ",
+              "w-8 h-8 text-xs rounded-md flex items-center justify-center bg-slate-200 hover:bg-secondary hover:text-white transition duration-500",
               page === i + 1 && "text-white bg-secondary"
             )}
           >
@@ -83,7 +86,7 @@ export default function ProductsPagination({ noOfPages, page }: TProp) {
       <button
         disabled={page === noOfPages}
         onClick={() => handlePagination("plus")}
-        className="h-8 px-3 rounded-md flex items-center justify-center border border-slate-400 hover:bg-secondary hover:border-transparent hover:text-white transition-smooth disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none"
+        className="h-8 px-3 rounded-md flex items-center justify-center border border-slate-400 hover:bg-secondary hover:border-transparent hover:text-white transition-smooth disabled:cursor-not-allowed disabled:opacity-40 disabled:pointer-events-none mr-5 "
       >
         <span className="max-md:sr-only">Next</span>
         <ChevronRight className="w-4 h-4" />
