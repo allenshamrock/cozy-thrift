@@ -4,11 +4,11 @@ import { TProducts } from "@/types/supabaseTypes";
 
 type PropType = {
   products: TProducts | null;
-  noOfpages?: number;
   page?: number | undefined;
+  noOfPages?: number;
 };
 
-export default function Products({ products, noOfpages, page }: PropType) {
+export default function Products({ products, noOfPages, page }: PropType) {
   return (
     <div className="md:col-span-4">
       {products && products?.length > 0 ? (
@@ -20,7 +20,10 @@ export default function Products({ products, noOfpages, page }: PropType) {
       ) : (
         <div className="text-xs font-semibold">Nothing to see here!</div>
       )}
-      {page && <ProductsPagination noOfPages={noOfpages} page={page} />}
+      <>
+        {/* {console.log("pagination props:", { noOfPages, page })} */}
+        {page && <ProductsPagination noOfPages={noOfPages} page={page} />}
+      </>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const urlSchema = z.object({
-  gender: z.enum(["male", "female", "both"]).optional(),
+  gender: z.enum(["Male", "Female", "Unisex"]).optional(),
   sort: z.enum(["asc", "dsc"]).optional(),
   color: z.string().optional(),
   categorySlug: z.string().optional(),
@@ -39,11 +39,12 @@ export default async function page({
       ([key]) => key !== "sort" && key !== "page" && key !== "search"
     )
   );
-  const colorValue = ColorVariant.find((col) => col.name === color)?.value;
+  // Finding the item by hex values as stored in my db
+  // const colorValue = ColorVariant.find((col) => col.name === color)?.value;
 
   let matchObj = filtereData;
   if (data?.color) {
-    matchObj = { ...matchObj, color: colorValue as string };
+    matchObj = { ...matchObj, color: color as string }; //Accessing the color name directly from my db exploiting the match supabase feature
   }
 
   let orderObj = {

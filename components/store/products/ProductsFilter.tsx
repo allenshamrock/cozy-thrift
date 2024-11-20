@@ -1,14 +1,15 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { Gender } from "@/store/cart-store";
 import { ColorVariant, genderOptions } from "@/components/Constants";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { Gender } from "@/store/cart-store";
 import { useRouter, useSearchParams } from "next/navigation";
-import { TCategory } from "@/types/supabaseTypes";
+
 import queryString from "query-string";
+import { TCategory } from "@/types/supabaseTypes";
 
 type PropType = {
-  categories: TCategory | null;
+  categories: TCategory[] | null;
 };
 
 export const priceRange = [
@@ -38,7 +39,7 @@ export default function ProductsFilter({ categories }: PropType) {
 
     const updatedQuery: any = {
       ...currentQuery,
-      gen: gen,
+      gender: gen,
       page: null,
     };
 
@@ -52,7 +53,6 @@ export default function ProductsFilter({ categories }: PropType) {
     );
     router.push(url);
   };
-
   const handleSort = (value: string) => {
     let currentQuery = {};
 
@@ -77,7 +77,6 @@ export default function ProductsFilter({ categories }: PropType) {
     );
     router.push(url);
   };
-
   const handleCategory = (value: string | null) => {
     let currentQuery = {};
 
@@ -86,21 +85,21 @@ export default function ProductsFilter({ categories }: PropType) {
       console.log("current query", currentQuery);
     }
 
-      const updatedQuery: any = {
-        ...currentQuery,
-        categorySlug: value,
-        page: null,
-      };
+    const updatedQuery: any = {
+      ...currentQuery,
+      categorySlug: value,
+      page: null,
+    };
 
-      if (params?.get("categorySlug") === value) {
-        delete updatedQuery.categorySlug;
-      }
+    if (params?.get("categorySlug") === value) {
+      delete updatedQuery.categorySlug;
+    }
 
-      const url = queryString.stringifyUrl(
-        { url: "/store", query: updatedQuery },
-        { skipNull: true }
-      );
-      router.push(url);
+    const url = queryString.stringifyUrl(
+      { url: "/store", query: updatedQuery },
+      { skipNull: true }
+    );
+    router.push(url);
   };
   const handleColor = (value: string) => {
     let currentQuery = {};
@@ -129,7 +128,7 @@ export default function ProductsFilter({ categories }: PropType) {
 
   return (
     <aside className="hidden md:block md:col-span-1">
-      <div className="sticky top-20 w-full h-[80vh] scroll-bar">
+      <div className="sticky top-20 w-full h-[80vh] overflow-y-scroll">
         <div className="mb-6">
           <h2 className="uppercase font-medium mb-3 border-b-2 border-gray-200">
             Categories
@@ -183,7 +182,7 @@ export default function ProductsFilter({ categories }: PropType) {
             {ColorVariant.map((item) => {
               return (
                 <div
-                  style={{ borderColor: `${item.value}` }}
+                  style={{borderColor: `${item.value}`}}
                   key={item.value}
                   className={cn(
                     "w-8 grid place-items-center rounded-full aspect-square cursor-pointer hover:border-2 transition-smooth",

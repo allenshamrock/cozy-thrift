@@ -51,4 +51,4 @@ export const ColorVariant = [
   },
 ];
 
-export const genderOptions = ["male", "female", "unisex"] as Gender[];
+export const genderOptions = ["Male", "Female", "Unisex"] as Gender[];

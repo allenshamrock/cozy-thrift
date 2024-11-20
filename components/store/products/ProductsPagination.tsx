@@ -15,6 +15,7 @@ type TProp = {
 export default function ProductsPaginaton({ noOfPages, page }: TProp) {
   const params = useSearchParams();
   const router = useRouter();
+  // console.log(noOfPages, page);
 
   const handlePagination = (
     type?: "plus" | "minus" | "index",
@@ -47,6 +48,7 @@ export default function ProductsPaginaton({ noOfPages, page }: TProp) {
       );
       router.push(url);
     } else if (type === "index" && index) {
+      console.log(index);
       const updatedQuery: any = {
         ...currentQuery,
         page: index,
@@ -70,7 +72,7 @@ export default function ProductsPaginaton({ noOfPages, page }: TProp) {
         <span className="max-md:sr-only">Previous</span>
       </button>
       <div className="flex items-center justify-center gap-2">
-        {Array.from({ length: noOfPages! }, (_, i) => (
+        {Array.from({length:noOfPages!}, (_, i) => (
           <button
             key={i}
             onClick={() => handlePagination("index", i + 1)}
