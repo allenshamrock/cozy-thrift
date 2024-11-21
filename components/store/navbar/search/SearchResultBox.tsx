@@ -1,25 +1,26 @@
 "use client";
+
 import { motion } from "framer-motion";
 import SearchResultBoxItem from "./SearchResultBoxItem";
-import queryString from "query-string";
-import { useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
-import { X, Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { TProducts } from "@/types/supabaseTypes";
+import { useRouter, useSearchParams } from "next/navigation";
+import queryString from "query-string";
 
-type ProtoType = {
-  openSearchDropDown: boolean;
-  setOpenSearchDropDown: Dispatch<SetStateAction<boolean>>;
+type PropType = {
+  openSearchDropdown: boolean;
+  setOpenSearchDropdown: Dispatch<SetStateAction<boolean>>;
   products: TProducts[] | null;
   searchInput: string | null;
 };
 
 export default function SearchResultBox({
-  openSearchDropDown,
-  setOpenSearchDropDown,
+  openSearchDropdown,
+  setOpenSearchDropdown,
   products,
   searchInput,
-}: ProtoType) {
+}: PropType) {
   const variants = {
     initial: {
       opacity: 0,
@@ -39,7 +40,7 @@ export default function SearchResultBox({
 
     if (params) {
       currentQuery = queryString.parse(params.toString());
-      console.log("currentQuery", currentQuery);
+      console.log("current query", currentQuery);
     }
 
     const updatedQuery: any = {
@@ -53,29 +54,29 @@ export default function SearchResultBox({
       { skipNull: true, skipEmptyString: true }
     );
     router.push(url);
-    setOpenSearchDropDown(false);
+    setOpenSearchDropdown(false);
   };
 
   return (
     <motion.div
       variants={variants}
       initial="initial"
-      animate={openSearchDropDown ? "animate" : "initial"}
+      animate={openSearchDropdown ? "animate" : "initial"}
       transition={{ duration: 0.5 }}
-      className="md:w-[33rem] p-4 bg-white border rounded h-fit absolute top-[3.2rem] right-0shadow-md"
+      className="md:w-[33rem] p-4 bg-white border h-fit rounded absolute top-[3.2rem] right-0 shadow-md"
     >
       <div className="flex justify-between items-center mb-2">
-        {products && products.length > 0 && searchInput && (
+        {products && products?.length > 0 && searchInput && (
           <button
             className="bg-primary/10 hover:bg-primary/40 transition-smooth px-3 text-sm rounded-full py-1"
             onClick={handleSearch}
           >
-            see all results
+            See all results
           </button>
         )}
         <X
-          className="cursor-pointer w-4 h-4"
-          onClick={() => setOpenSearchDropDown(false)}
+          onClick={() => setOpenSearchDropdown(false)}
+          className="cursor-pointer"
         />
       </div>
       <div>
@@ -84,15 +85,15 @@ export default function SearchResultBox({
             .slice(0, 5)
             .map((product) => (
               <SearchResultBoxItem
-                key={product.id}
+                key={product?.id}
                 product={product}
-                setOpenSearchDropDown={setOpenSearchDropDown}
+                setOpenSearchDropdown={setOpenSearchDropdown}
               />
             ))
         ) : (
           <div className="w-full h-full flex gap-2 items-center justify-center">
-            <p>Type something to search</p>
-            <Search className="w-4 h-4 text-slate-500" />
+            Type something to search{" "}
+            <Search className="w-5 h-5 text-slate-500" />
           </div>
         )}
       </div>

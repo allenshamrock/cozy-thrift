@@ -111,7 +111,7 @@ export default function SignInForm({
             )}
             <Button
               disabled={loading}
-              className="mt-4 bg-secondary bg-rose-600 border-secondary py-3 text-white"
+              className="mt-4 bg-secondary border-secondary py-3 text-white"
               solid
               loading={loading}
               label={loading ? "Signing in..." : "Sign in"}
