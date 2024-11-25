@@ -1,6 +1,8 @@
 "use client";
+
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -10,20 +12,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import CustomStarRating from "@/components/custom-star-rating";
-import { getTimeAgo } from "@/lib/getTimeAgo";
-import { TReviews } from "@/types/supabaseTypes";
-import Button from "@/components/Button";
 import toast from "react-hot-toast";
 import { createReview } from "@/actions/reviewActions";
+import { TReviews } from "@/types/supabaseTypes";
+import Button from "@/components/Button";
+import { getTimeAgo } from "@/lib/getTimeAgo";
 
 export default function Reviews({
   productId,
   reviews,
-  hasBrought,
+  hasBoughtProduct,
 }: {
   productId: number;
   reviews: TReviews[] | null;
-  hasBrought: boolean | null;
+  hasBoughtProduct: boolean | null;
 }) {
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState("");
@@ -34,9 +36,8 @@ export default function Reviews({
       toast.error("Please add a rating");
       return;
     }
-
     if (!comment) {
-      toast.error("PLease add a comment");
+      toast.error("Please add a comment");
       return;
     }
     setLoading(true);
@@ -46,7 +47,7 @@ export default function Reviews({
       })
       .then((data) => {
         if (data.success) {
-          toast.success("Review addedd");
+          toast.success("Review added");
           setLoading(false);
         }
         if (data.error) {
@@ -62,7 +63,7 @@ export default function Reviews({
 
   return (
     <div className="w-full">
-      <h2 className="font-semibold text-2xl mb-4 md:mb-6">Reviews & ratings</h2>
+      <h1 className="font-semibold text-2xl mb-4 md:mb-6">Reviews & Ratings</h1>
       <div className="flex flex-col gap-3">
         {reviews?.length ? (
           reviews.map((review, i) => (
@@ -73,10 +74,10 @@ export default function Reviews({
               <article className="flex items-center gap-2 max-w-[80%]">
                 <Image
                   src={review.userImage || "/profile.png"}
-                  alt="users profile picture"
                   width={500}
                   height={500}
-                  className="aspect-square w-8 rounded-full object-cover"
+                  alt="user image"
+                  className="w-8 aspect-square rounded-full object-cover"
                 />
                 <div>
                   <h2 className="font-medium ">{review.username}</h2>
@@ -85,7 +86,7 @@ export default function Reviews({
               </article>
               <div>
                 <CustomStarRating
-                  className="my-2 "
+                  className="my-2"
                   small
                   rating={review.rating as number}
                   readOnly
@@ -97,19 +98,19 @@ export default function Reviews({
             </div>
           ))
         ) : (
-          <p>THis product has no review yet</p>
+          <p>This product has no review yet.</p>
         )}
       </div>
-      {hasBrought ? (
+      {hasBoughtProduct ? (
         <Dialog>
-          <DialogTrigger asChild className="mt-3">
+          <DialogTrigger className="mt-3" asChild>
             <button className="font-medium text-lg border-b">
               Add a review
             </button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>What do you think about this product?</DialogTitle>
+              <DialogTitle>What do you think about this product ?</DialogTitle>
               <DialogDescription>
                 Select a rating and leave a comment.
               </DialogDescription>

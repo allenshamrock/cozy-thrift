@@ -1,6 +1,8 @@
 "use client";
+
 import { useRef } from "react";
 import Image from "next/image";
+
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -17,8 +19,9 @@ export default function ProductImages({ images }: { images: string[] }) {
     <div className="w-full">
       <Carousel
         plugins={[plugin.current]}
-        onMouseLeave={plugin.current.reset}
+        className=""
         onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
         opts={{
           align: "start",
           loop: true,
@@ -26,7 +29,7 @@ export default function ProductImages({ images }: { images: string[] }) {
       >
         <CarouselContent>
           {images.map((image, i) => (
-            <CarouselItem>
+            <CarouselItem key={i}>
               <div className="p-1">
                 <Image
                   className="w-full bg-gray-100 h-[20rem] lg:h-[40rem] object-cover"
