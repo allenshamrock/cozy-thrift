@@ -6,13 +6,12 @@ import { useCartStore } from "@/store/cart-store";
 import { useEffect } from "react";
 
 export default function CartIcon() {
-
   const cart = useCartStore((state) => state.cart);
 
-  useEffect(()=>{
+  useEffect(() => {
     //To restore & reload the persisted data from the localStorage.Allowing the cart icon to display te correct no of items present in the cart
-    useCartStore.persist.rehydrate
-  },[])
+    useCartStore.persist.rehydrate();
+  }, []);
   return (
     <Link href="/cart" className="relative">
       <ShoppingBag className="w-5 h-5 opacity-50" />
