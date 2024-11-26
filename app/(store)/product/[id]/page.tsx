@@ -32,13 +32,13 @@ export default async function page({
     .neq("id", id);
 
   return (
-    <div className="contain mt-[5rem]">
+    <div className="container mt-[5rem]">
       <section className="flex flex-col lg:flex-row gap-9">
         <ProductImages images={productsData.data?.images || []} />
         <Details
           reviews={reviewsData.data}
           product={productsData.data}
-          hasBroughtProduct={boughtProducts && boughtProducts?.length > 0}
+          hasBoughtProduct={boughtProducts && boughtProducts?.length > 0}
         />
       </section>
       <section className="my-4 md:my-[6rem]">

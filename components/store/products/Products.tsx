@@ -3,7 +3,7 @@ import ProductsPagination from "./ProductsPagination";
 import { TProducts } from "@/types/supabaseTypes";
 
 type PropType = {
-  products: TProducts | null;
+  products: TProducts[] | null;
   page?: number | undefined;
   noOfPages?: number;
 };

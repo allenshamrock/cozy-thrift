@@ -19,7 +19,6 @@ export default function ProductImages({ images }: { images: string[] }) {
     <div className="w-full">
       <Carousel
         plugins={[plugin.current]}
-        className=""
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
         opts={{
@@ -42,8 +41,8 @@ export default function ProductImages({ images }: { images: string[] }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="ml-10" />
+        <CarouselNext className="mr-10" />
       </Carousel>
     </div>
   );
