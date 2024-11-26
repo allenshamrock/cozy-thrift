@@ -2,7 +2,7 @@
 const nextConfig = {
   images: {
     // allows external images from this hostname
-    domains: ["i.pinimg.com"], 
+    domains: ["i.pinimg.com"],
     // remotePatterns: [
     //   {
     //     protocol: "https",

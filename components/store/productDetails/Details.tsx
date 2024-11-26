@@ -36,7 +36,7 @@ export default function Details({
 
   return (
     <Tabs defaultValue="productDetails" className="w-full">
-      <TabsList className="flex justify-evenly" >
+      <TabsList className="flex justify-evenly">
         {TabOptions.map((option) => (
           <TabsTrigger key={option.tabValue} value={option.tabValue}>
             {option.tabLabel}
