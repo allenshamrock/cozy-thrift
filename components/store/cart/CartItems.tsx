@@ -26,11 +26,13 @@ export default function CartItems() {
     >
       <div className="flex items-center justify-between mb-3 md:mb-6 w-full">
         <h2 className="font-semibold text-2xl md:text-3xl">Shopping Cart</h2>
-        <h2 className="font-semibold text-2xl md:text-3xl">{cart.length}</h2>
+        <h2 className="font-semibold text-2xl md:text-3xl">
+          {cart.length} items
+        </h2>
       </div>
       <hr />
       {cart.length ? (
-        cart.map((item, i) => <CartItem key={i} cartItem={item} />)
+        cart.map((item,i) => <CartItem key={i} cartItem={item} />)
       ) : (
         <div className="md:h-[15rem] p-3 grid place-items-center ">
           Your cart is empty

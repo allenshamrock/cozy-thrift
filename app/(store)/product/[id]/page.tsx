@@ -16,7 +16,7 @@ export default async function page({
     supabase.from("products").select().eq("id", id).single(),
     supabase.from("reviews").select().eq("productId", id),
   ]);
-  console.log("reviewData:",reviewsData);
+  // console.log("reviewData:",reviewsData);
   // console.log("Product ID:", id);
   //check if current user has bought the product before
   const user = await getUserSession();
