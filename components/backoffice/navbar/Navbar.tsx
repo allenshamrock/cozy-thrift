@@ -2,7 +2,7 @@
 
 import { Menu, Search, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-// import AdminSearchBox from "./AdminSearchBox";
+import AdminSearchBox from "./AdminSearchBox";
 import { Dispatch, SetStateAction } from "react";
 // import Logo from "@/components/Logo";
 
@@ -32,7 +32,7 @@ export default function Navbar({ setShowSideBar }: NavType) {
         </div>
         <div className="w-full ">
           <div className="ml-auto flex items-center gap-2 w-fit">
-            {/* <AdminSearchBox /> */}
+            <AdminSearchBox />
             <Link
               className="flex items-center gap-2 border rounded p-3 hover:border-slate-400 hover:shadow transition duration-500"
               href="/store"
