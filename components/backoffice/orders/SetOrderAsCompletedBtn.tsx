@@ -1,6 +1,6 @@
 "use client";
 import { setOrderAsCompleted } from "@/actions/orderActions";
-import Button from "../Button";
+import Button from "@/components/Button";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
